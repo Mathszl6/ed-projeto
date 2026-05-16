@@ -1,4 +1,5 @@
 # Estruturas de Dados - Projeto
+## Integrantes do Grupo: Matheus Felipe Dias da Silva e Rafaela Virginio Franco
 
 ## Projeto Escolhido: Carrinho de Compras - Projeto 2
 Sistema que simula um carrinho de compras de uma loja virtual. O backend deve ser inteiramente em Python.
@@ -16,3 +17,7 @@ Sistema que simula um carrinho de compras de uma loja virtual. O backend deve se
 - Ordenar produtos por nome ou preço
 - Buscar produto por nome ou categoria
 - Localização rápida de produto por código (tabela hash)
+
+## Tecnologia Front-End Planejada:
+Planejamos utilizar o Framework React para desenvolvimento do frontend, por possuirmos maior familiaridade com o mesmo.
+
