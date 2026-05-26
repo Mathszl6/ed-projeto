@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -8,9 +9,29 @@ import Card from '../components/Card' // 🔥 IMPORTAMOS O CARD AQUI! (Ajuste a 
 
 function App() {
   const [produtos, setProdutos] = useState([])
-  //funcao que adiciona um novo produto -> pega oq ja estava salvo, joga dentro de uma lista nova e adiciona o novo produto no final dessa lista
+  // useEffect para conseguir buscar a lista no back assim que o site carrega, ate com F5
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/produtos')
+      .then(response => {
+        setProdutos(response.data)
+      })
+      .catch(error => console.error("Erro ao buscar os produtos da API:", error))
+  }, [])
+
+  // funcao que adiciona um novo produto mandando pro FastAPI
   const adicionarProduto = (novoProduto) => {
-    setProdutos([...produtos, novoProduto])
+    axios.post('http://127.0.0.1:8000/produtos', novoProduto)
+      .then(response => {
+        setProdutos([...produtos, novoProduto])
+        alert(response.data.mensagem)
+      })
+      .catch(error => {
+        if (error.response && error.response.data) {
+          alert(error.response.data.detail) // Mostra o erro do array cheio/repetido
+        } else {
+          alert("Erro de comunicação com o backend.")
+        }
+      })
   }
 
   return (
