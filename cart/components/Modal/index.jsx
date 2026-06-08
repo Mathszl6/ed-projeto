@@ -1,8 +1,7 @@
 import { useState } from "react";
-import './styles.css'; // Não esqueça de importar o CSS!
+import './styles.css'; 
 
 export default function Modal({ isOpen, onClose, aoSalvar }) {
-  // Estado corrigido para "produto" e com o campo "descricao"
   const [produto, setProduto] = useState({
     nome: '',
     preco: '',

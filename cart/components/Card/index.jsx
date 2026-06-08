@@ -1,6 +1,6 @@
 import './styles.css'; 
 
-export default function Card({ produto }) {
+export default function Card({ produto, aoAdicionar }) {
   return (
     <div className="card-container">
       
@@ -20,6 +20,13 @@ export default function Card({ produto }) {
           <span className="card-stock">
             📦 Estoque: {produto.quantidade} un.
           </span>
+
+          <button 
+            className="btn-adicionar" 
+            onClick={() => aoAdicionar(produto)}
+          >
+            Adicionar
+          </button>
         </div>
       </div>
 
