@@ -30,9 +30,16 @@ const [produtos, setProdutos] = useState([
     alert("Produto cadastrado na memória local!")
   }
 
-  const adicionarAoCarrinho = (produto) => {
-    setCarrinho([...carrinho, produto]) 
+const adicionarAoCarrinho = (produto) => {
+  const quantidadeJaNoCarrinho = carrinho.filter(item => item.id === produto.id).length;
+
+  if (quantidadeJaNoCarrinho >= produto.quantidade) {
+    alert(`Ops! O estoque máximo de ${produto.nome} é de ${produto.quantidade} unidades.`);
+    return; 
   }
+
+  setCarrinho([...carrinho, produto]);
+}
 
   const removerDoCarrinho = (produtoId) => {
     //procura o produto que vai ser removido

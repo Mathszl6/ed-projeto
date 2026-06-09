@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './styles.css';
-import { FaCartShopping, FaPlus, FaClockRotateLeft } from "react-icons/fa6"; // 🔥 Ícone adicionado aqui
+import { FaCartShopping, FaPlus, FaClockRotateLeft } from "react-icons/fa6";
 import Modal from '../Modal'; 
 
 export default function Header ({ aoSalvarProduto, quantidadeCarrinho, aoAbrirCarrinho, aoAbrirHistorico }) {
@@ -12,7 +12,7 @@ export default function Header ({ aoSalvarProduto, quantidadeCarrinho, aoAbrirCa
     };
 
     return(
-        <div className='header-container' style={{ display: 'flex', justifyContent: 'space-between', padding: '15px', alignItems: 'center' }}>
+        <div className='header-container'>
             <div className='boxTitle'>
                 <FaCartShopping className='icon' />
                 <h1>Carrinho de Compras</h1>
@@ -20,15 +20,15 @@ export default function Header ({ aoSalvarProduto, quantidadeCarrinho, aoAbrirCa
             
             <div style={{ display: 'flex', gap: '10px' }}>
                 {/* Botão Histórico */}
-                <button className='btn' onClick={aoAbrirHistorico} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <FaClockRotateLeft /> 
-                    <span>Histórico</span>
+                <button className='btn' onClick={aoAbrirHistorico}>
+                    <FaClockRotateLeft className='icon'/> 
+                    <span className='title-btn'>Histórico</span>
                 </button>
 
                 {/* Botão Carrinho */}
-                <button className='btn' onClick={aoAbrirCarrinho} style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <FaCartShopping /> 
-                    <span>Carrinho</span>
+                <button className='btn' onClick={aoAbrirCarrinho}>
+                    <FaCartShopping  className='icon'/> 
+                    <span className='title-btn'>Carrinho</span>
                     {quantidadeCarrinho > 0 && (
                         <span style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'red', color: 'white', borderRadius: '50%', width: '18px', height: '18px', fontSize: '12px' }}>
                             {quantidadeCarrinho}

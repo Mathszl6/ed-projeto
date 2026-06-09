@@ -1,16 +1,109 @@
+/* Container principal */
 .historico-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-.lista-compras {
-  list-style: none;
-  padding: 0;
-}
-
-.item-historico {
+/* Barra superior */
+.historico-header-bar {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 5px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn-voltar {
+  background-color: transparent;
+  color: #00a8cc; /* Tom de ciano/azul */
+  border: 2px solid #00a8cc;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #00a8cc;
+  color: white;
+}
+
+/* Grid para os cards ficarem lado a lado em telas grandes */
+.historico-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* O CARD EM SI */
+.card-compra {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra elegante */
+  border-left: 6px solid #00a8cc; /* Detalhe lateral na cor do app */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Parte de cima do card com destaque */
+.card-compra-header {
+  background-color: #f5f9fa;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.compra-data {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.compra-total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #005b96;
+}
+
+/* Lista de produtos dentro do card */
+.card-compra-body {
+  padding: 20px;
+}
+
+.titulo-itens {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.item-linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.item-linha:last-child {
+  border-bottom: none;
+}
+
+.item-preco {
+  color: #555;
+  font-weight: 500;
+}
+
+.historico-vazio {
+  text-align: center;
+  padding: 50px;
+  color: #666;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
