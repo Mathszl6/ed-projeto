@@ -23,6 +23,7 @@ h1{
     gap: 5px;
 }
 .btn{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
