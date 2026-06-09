@@ -6,29 +6,29 @@ export default function Cart({ isOpen, onClose, itens, aoRemover, aoDesfazer, ao
   const total = itens.reduce((acc, item) => acc + Number(item.preco), 0);
 
   return (
-    <div className="modal-overlay" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
+    <div className="modal-overlay">
       
-      <div className="modal-content" style={{ background: '#fff', padding: '25px', borderRadius: '8px', width: '450px' }}>
+      <div className="modal-content">
         
-        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid #005b96', paddingBottom: '10px', marginBottom: '15px' }}>
-          <h2 style={{ color: '#005b96', margin: 0 }}>🛒 Seu Carrinho</h2>
-          <button onClick={onClose} style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer' }}>✖</button>
+        <div className='cart'>
+          <h2 className='title-cart'>🛒 Seu Carrinho</h2>
+          <button onClick={onClose} className='btn-close'>✖</button>
         </div>
         
-        <button onClick={aoDesfazer} style={{ width: '100%', marginBottom: '15px', background: '#00a8cc', color: '#fff', border: 'none', padding: '10px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
+        <button onClick={aoDesfazer} className='btn-desfazer'>
           ↩️ Desfazer Última Ação
         </button>
 
         {itens.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#777', padding: '20px 0' }}>O carrinho está vazio.</p>
+          <p className='text'>O carrinho está vazio.</p>
         ) : (
-          <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+          <div className='map'>
             {itens.map((item, index) => (
-              <div key={index} style={{ display: 'flex', justifyContent: 'space-between', background: '#f5f7fa', padding: '10px', marginBottom: '8px', borderRadius: '4px' }}>
+              <div key={index} className='index'>
                 <span>{item.nome}</span>
-                <div style={{ display: 'flex', gap: '15px' }}>
+                <div className='price'>
                     <span style={{ fontWeight: 'bold' }}>R$ {Number(item.preco).toFixed(2)}</span>
-                    <button onClick={() => aoRemover(item.id)} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}>X</button>
+                    <button onClick={() => aoRemover(item.id)} className='btn-close'>X</button>
                 </div>
               </div>
             ))}

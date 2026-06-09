@@ -1,0 +1,70 @@
+.modal-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content{
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 450px;
+}
+
+
+.cart{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #005b96;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.title-cart{
+    color: #005b96;
+    margin: 0;
+}
+.btn-close{
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+.btn-desfazer{
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #00a8cc;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 'bold';
+}
+.text{
+    text-align: center;
+    color: #777;
+    padding: 20px 0;
+}
+.map{
+    max-height: 250px;
+    overflow-y: auto;
+}
+.index{
+    display: flex;
+    justify-content: space-between;
+    background: #f5f7fa;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+.price{
+    display: flex;
+    gap: 15px;
+}
+
