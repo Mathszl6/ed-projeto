@@ -19,7 +19,7 @@ function App() {
 
   // Estados dos filtros
   const [termoBusca, setTermoBusca] = useState('')
-  const [criterioOrdenacao, setCriterioOrdenacao] = useState('nome')
+  const [criterioOrdenacao, setCriterioOrdenacao] = useState('')
 
   // 1. Carrega Carrinho e Histórico
   const carregarTudo = () => {
@@ -27,27 +27,16 @@ function App() {
     axios.get('http://127.0.0.1:8000/historico').then(res => setHistoricoLocal(res.data)).catch(console.error)
   }
 
-  // 2. Carrega Produtos do Backend e aplica filtros
+  // 2. Carrega Produtos do Backend mandando a busca e ordenação para a API Python
   const carregarProdutos = () => {
-    axios.get('http://127.0.0.1:8000/produtos')
+    axios.get('http://127.0.0.1:8000/produtos', {
+      params: {
+        busca: termoBusca,
+        ordenar_por: criterioOrdenacao
+      }
+    })
       .then(res => {
-        let resultados = res.data;
-        
-        // Simula a Busca
-        resultados = resultados.filter(produto => 
-          produto.nome.toLowerCase().includes(termoBusca.toLowerCase())
-        );
-
-        // Simula a Ordenação
-        if (criterioOrdenacao === 'nome') {
-          resultados.sort((a, b) => a.nome.localeCompare(b.nome));
-        } else if (criterioOrdenacao === 'preco_menor') {
-          resultados.sort((a, b) => a.preco - b.preco);
-        } else if (criterioOrdenacao === 'preco_maior') {
-          resultados.sort((a, b) => b.preco - a.preco);
-        }
-
-        setProdutos(resultados);
+        setProdutos(res.data);
       })
       .catch(console.error)
   }
@@ -62,11 +51,11 @@ function App() {
     carregarProdutos();
   }, [termoBusca, criterioOrdenacao])
 
-  // Cadastro de produto (Array Estático)
+  // Cadastro de produto
   const adicionarProduto = (novoProduto) => {
     axios.post('http://127.0.0.1:8000/produtos', novoProduto)
       .then(res => {
-         carregarProdutos(); // Recarrega do backend pra refletir na tela
+         carregarProdutos(); // Pega do backend mostrar no front
          alert(res.data.mensagem);
       })
       .catch(error => {
@@ -148,7 +137,7 @@ function App() {
               ))
             ) : (
               <p style={{ textAlign: 'center', width: '100%', marginTop: '20px', color: '#666' }}>
-                Nenhum produto encontrado com o nome "{termoBusca}".
+                Nenhum produto encontrado com o nome " {termoBusca} ".
               </p>
             )}
           </div>

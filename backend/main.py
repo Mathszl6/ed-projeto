@@ -151,8 +151,22 @@ def cadastrar_produto(produto: Produto):
         raise HTTPException(status_code=500, detail="Erro interno.")
 
 @app.get("/produtos")
-def listar_produtos():
-    return estoque.listar()
+def listar_produtos(busca: Optional[str] = None, ordenar_por: Optional[str] = None):
+    produtos = estoque.listar()
+    
+    if busca:
+        # Usando list comprehension para busca
+        produtos = [p for p in produtos if busca.lower() in p["nome"].lower()]
+        
+    if ordenar_por == "nome":
+        # Usando a função sorted() para ordenar por nome ou preço
+        produtos = sorted(produtos, key=lambda p: p["nome"].lower())
+    elif ordenar_por == "preco_menor":
+        produtos = sorted(produtos, key=lambda p: float(p["preco"]))
+    elif ordenar_por == "preco_maior":
+        produtos = sorted(produtos, key=lambda p: float(p["preco"]), reverse=True)
+        
+    return produtos
 
 # Carrinho
 @app.get("/carrinho")

@@ -22,6 +22,7 @@ export default function Filters({ termoBusca, setTermoBusca, criterioOrdenacao, 
                   onChange={(e) => setCriterioOrdenacao(e.target.value)} 
                   className="select-ordenacao"
                 >
+                    <option value="">Ordem de Cadastro (Padrão)</option>
                     <option value="nome">Ordenar por nome (A-Z)</option>
                     <option value="preco_menor">Preço (Menor para Maior)</option>
                     <option value="preco_maior">Preço (Maior para Menor)</option>

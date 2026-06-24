@@ -12,10 +12,10 @@ Sistema que simula um carrinho de compras de uma loja virtual. O backend deve se
 - Exibir resumo do carrinho com total atualizado
 - Finalizar compra e atualizar estoque
 - Exibir histórico de compras realizadas (usando lista encadeada)
+- [Etapa 04] Ordenar a lista de produtos por nome ou por preço (usando sorted do Python)
+- [Etapa 04] Buscar produto por nome (usando List Comprehensions no backend)
 
 ### A definir em aula:
-- Ordenar produtos por nome ou preço
-- Buscar produto por nome ou categoria
 - Localização rápida de produto por código (tabela hash)
 
 ## Tecnologia Front-End Planejada:
