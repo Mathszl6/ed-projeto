@@ -159,15 +159,12 @@ def listar_produtos(busca: Optional[str] = None, ordenar_por: Optional[str] = No
         produtos = [p for p in produtos if busca.lower() in p["nome"].lower()]
         
     if ordenar_por == "nome":
-        # Usando a função nativa sorted() do Python
+        # Usando a função sorted() para ordenar por nome ou preço
         produtos = sorted(produtos, key=lambda p: p["nome"].lower())
     elif ordenar_por == "preco_menor":
         produtos = sorted(produtos, key=lambda p: float(p["preco"]))
     elif ordenar_por == "preco_maior":
         produtos = sorted(produtos, key=lambda p: float(p["preco"]), reverse=True)
-    else:
-        # Padrão: Inverte a lista para o produto recém-cadastrado aparecer no topo (primeiro da tela)
-        produtos = produtos[::-1]
         
     return produtos
 
