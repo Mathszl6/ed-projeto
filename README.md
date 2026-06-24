@@ -1,8 +1,8 @@
 # Estruturas de Dados - Projeto 02: Carrinho de Compras
 
 ## Integrantes do Grupo
-- Matheus Felipe Dias da Silva
-- Rafaela Virginio Franco
+- Matheus Felipe Dias da Silva (TADS 3)
+- Rafaela Virginio Franco (TADS 4)
 
 ## Sobre o Projeto
 Sistema que simula um carrinho de compras de uma loja virtual desenvolvido para a disciplina de Estruturas de Dados. 
