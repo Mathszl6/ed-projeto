@@ -17,26 +17,60 @@ function App() {
   const [isCarrinhoOpen, setIsCarrinhoOpen] = useState(false)
   const [telaAtual, setTelaAtual] = useState('home') 
 
+  // Estados dos filtros
   const [termoBusca, setTermoBusca] = useState('')
   const [criterioOrdenacao, setCriterioOrdenacao] = useState('nome')
 
-  // Carrega tudo da API logo quando o site abre
-  useEffect(() => {
-    carregarTudo();
-  }, [])
-
-  // Centraliza as requisições GET
+  // 1. Carrega apenas o Carrinho e o Histórico da API (não mexe nos produtos)
   const carregarTudo = () => {
-    axios.get('http://127.0.0.1:8001/produtos').then(res => setProdutos(res.data)).catch(console.error)
+    // Comentamos a requisição de produtos do Python para podermos testar localmente
+    // axios.get('http://127.0.0.1:8001/produtos').then(res => setProdutos(res.data)).catch(console.error)
+    
     axios.get('http://127.0.0.1:8001/carrinho').then(res => setCarrinho(res.data)).catch(console.error)
     axios.get('http://127.0.0.1:8001/historico').then(res => setHistoricoLocal(res.data)).catch(console.error)
   }
 
-  // Cadastro de produto (Array Estático)
+  // 2. MOCK: Banco de dados falso para simular os produtos na gravação
+  const carregarProdutos = () => {
+    const bancoFalso = [
+      { id: 1, nome: 'Teclado Mecânico', preco: 250.00, quantidade: 10 },
+      { id: 2, nome: 'Mouse Gamer', preco: 120.00, quantidade: 5 },
+      { id: 3, nome: 'Monitor 144Hz', preco: 1200.00, quantidade: 2 },
+      { id: 4, nome: 'Mousepad', preco: 50.00, quantidade: 15 },
+    ];
+
+    // Simula a Busca
+    let resultados = bancoFalso.filter(produto => 
+      produto.nome.toLowerCase().includes(termoBusca.toLowerCase())
+    );
+
+    // Simula a Ordenação
+    if (criterioOrdenacao === 'nome') {
+      resultados.sort((a, b) => a.nome.localeCompare(b.nome));
+    } else if (criterioOrdenacao === 'preco_menor') {
+      resultados.sort((a, b) => a.preco - b.preco);
+    } else if (criterioOrdenacao === 'preco_maior') {
+      resultados.sort((a, b) => b.preco - a.preco);
+    }
+
+    // Atualiza a tela instantaneamente
+    setProdutos(resultados);
+  }
+
+  // 3. Roda uma vez ao abrir o site para pegar carrinho e histórico
+  useEffect(() => {
+    carregarTudo();
+  }, [])
+
+  // 4. Roda os produtos sempre que o usuário digitar ou mudar a ordenação
+  useEffect(() => {
+    carregarProdutos();
+  }, [termoBusca, criterioOrdenacao])
+
+  // Cadastro de produto (Apenas emite o alerta)
   const adicionarProduto = (novoProduto) => {
     axios.post('http://127.0.0.1:8001/produtos', novoProduto)
       .then(res => {
-         carregarTudo()
          alert(res.data.mensagem)
       })
       .catch(error => {
@@ -44,7 +78,7 @@ function App() {
       })
   }
 
-  // Adiciona ao Carrinho (Lista Encadeada)
+  // Adiciona ao Carrinho
   const adicionarAoCarrinho = (produto) => {
     const quantidadeJaNoCarrinho = carrinho.filter(item => item.id === produto.id).length;
     if (quantidadeJaNoCarrinho >= produto.quantidade) {
@@ -56,14 +90,14 @@ function App() {
       .catch(console.error)
   }
 
-  // Remover do Carrinho (Lista Encadeada e Pilha)
+  // Remover do Carrinho
   const removerDoCarrinho = (produtoId) => {
     axios.delete(`http://127.0.0.1:8001/carrinho/${produtoId}`)
       .then(res => carregarTudo())
       .catch(console.error)
   }
 
-  // Desfazer (Pilha de ações)
+  // Desfazer
   const desfazerUltimaAcao = () => {
     axios.post('http://127.0.0.1:8001/carrinho/desfazer')
       .then(res => carregarTudo())
@@ -96,23 +130,30 @@ function App() {
         aoAbrirHistorico={() => setTelaAtual('historico')}
       />
       
-      {/* para navegar entre as telas */}
       {telaAtual === 'home' ? (
         <main className='box-main'>
-          <h2 className='title'>Meus Produtos</h2>
-          <Filters
-            termoBusca={termoBusca}
-            setTermoBusca={setTermoBusca}
-            criterioOrdenacao={criterioOrdenacao}
-            setCriterioOrdenacao={setCriterioOrdenacao}
-          />
-        <div className="produtos-grid">
+          
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 className='title' style={{ margin: 0 }}>Meus Produtos</h2>
+            <Filters
+              termoBusca={termoBusca}
+              setTermoBusca={setTermoBusca}
+              criterioOrdenacao={criterioOrdenacao}
+              setCriterioOrdenacao={setCriterioOrdenacao}
+            />
+          </div>
+
+          {/* Grid de Produtos */}
+          <div className="produtos-grid">
             {produtos.length > 0 ? (
               produtos.map((produto) => (
                 <Card key={produto.id} produto={produto} aoAdicionar={adicionarAoCarrinho} />
               ))
             ) : (
-              <p>Nenhum produto encontrado com o nome "{termoBusca}".</p>
+              <p style={{ textAlign: 'center', width: '100%', marginTop: '20px', color: '#666' }}>
+                Nenhum produto encontrado com o nome "{termoBusca}".
+              </p>
             )}
           </div>
         </main>
